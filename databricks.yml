@@ -1,0 +1,11 @@
+bundle:
+  name: genie-code-demo
+
+resources:
+  jobs:
+    content_engagement_stats_job:
+      name: content-engagement-stats-etl
+      tasks:
+        - task_key: run_analysis
+          notebook_task:
+            notebook_path: ../src/content_engagement_stats_analysis.py
