@@ -1,0 +1,26 @@
+resources:
+  jobs:
+    daily_churn_scoring:
+      name: daily-churn-prediction-scoring
+
+      schedule:
+        quartz_cron_expression: "0 0 6 * * ?"
+        timezone_id: UTC
+        pause_status: UNPAUSED
+
+      email_notifications:
+        on_failure:
+          - haley.weaver@databricks.com
+
+      tags:
+        project: churn-prediction
+        team: data-science
+
+      tasks:
+        - task_key: score_subscribers
+          notebook_task:
+            notebook_path: ../src/churn_prediction_inference
+            source: WORKSPACE
+          max_retries: 1
+          min_retry_interval_millis: 60000
+          timeout_seconds: 1800
